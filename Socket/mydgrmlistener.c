@@ -28,7 +28,7 @@ void *get_in_addr(struct sockaddr *sa)
 int main(){
     struct addrinfo hint, *res, *addrp;
     struct sockaddr theirAddr;
-	char buff[MAX_MSG_SIZE];
+    char buff[MAX_MSG_SIZE];
     char s[INET6_ADDRSTRLEN];
     int sockfd;
 
@@ -61,21 +61,21 @@ int main(){
         }
         break;
     }
-	if(addrp == NULL){
-		printf(" listenr failed to bind");
-		return 2;
-	}
+    if(addrp == NULL){
+        printf(" listenr failed to bind");
+        return 2;
+    }
 
     freeaddrinfo(res);
 
-	int addrLen = sizeof(theirAddr);
-	while(1){
-		int byte = recvfrom(sockfd, buff, sizeof(buff)-1, 0, &theirAddr, &addrLen);
-		buff[byte] = '\0';
+    int addrLen = sizeof(theirAddr);
+    while(1){
+        int byte = recvfrom(sockfd, buff, sizeof(buff)-1, 0, &theirAddr, &addrLen);
+        buff[byte] = '\0';
 
-		inet_ntop(theirAddr.sa_family,get_in_addr(&theirAddr), s, sizeof(s));
-		printf("Msg received from: %s and message is %s \n", s, buff);
-	}
+        inet_ntop(theirAddr.sa_family,get_in_addr(&theirAddr), s, sizeof(s));
+        printf("Msg received from: %s and message is %s \n", s, buff);
+    }
     return 0;
 }
 
